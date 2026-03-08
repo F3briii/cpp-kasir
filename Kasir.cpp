@@ -1,13 +1,13 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 
 int main() {
     const int MAX_MENU = 100;
-
-    string daftarMenu[MAX_MENU] = {"Espresso", "Cappucino", "MatchaLatte", "Croissant", "Americano"};
-    int daftarHarga[MAX_MENU] = {15000, 20000, 15000, 12000, 15000};
-    int jumlahMenu = 5; // jumlah menu awal
+    string daftarMenu[MAX_MENU];
+    int daftarHarga[MAX_MENU];
+    int jumlahMenu = 0; // awalnya kosong
 
     // struk belanja
     string strukMenu[100];
@@ -16,11 +16,22 @@ int main() {
     int index = 0;
     int totalsemua = 0;
 
+    // diskon & pajak
+    double diskon = 0.1; // 10% kalau total > threshold
+    double pajak = 0.1;  // PPN 10%
+    int diskonThreshold = 100000; // threshold diskon
+
     while(true){
         cout << "\n=== KOPI SANTAI ===" << endl;
-        for(int i = 0; i < jumlahMenu; i++){
-            cout << i+1 << ". " << daftarMenu[i] << " - " << daftarHarga[i] << endl;
+
+        if(jumlahMenu == 0){
+            cout << "Belum ada menu. Silakan tambah menu baru dulu.\n";
+        } else {
+            for(int i = 0; i < jumlahMenu; i++){
+                cout << i+1 << ". " << daftarMenu[i] << " - " << daftarHarga[i] << endl;
+            }
         }
+
         cout << jumlahMenu+1 << ". Tambah Menu Baru" << endl;
         cout << "0. Selesai" << endl;
 
@@ -44,7 +55,7 @@ int main() {
             daftarHarga[jumlahMenu] = hargaBaru;
             jumlahMenu++;
 
-            // simpan ke file juga
+            // simpan ke file (opsional)
             ofstream fileTambah("menu.txt", ios::app);
             fileTambah << menuBaru << " " << hargaBaru << endl;
             fileTambah.close();
@@ -74,12 +85,26 @@ int main() {
         }
     }
 
+    // Hitung diskon & pajak
+    double totalFinal = totalsemua;
+    double diskonNominal = 0;
+    if(totalsemua >= diskonThreshold){
+        diskonNominal = totalsemua * diskon;
+        totalFinal -= diskonNominal;
+    }
+    double pajakNominal = totalFinal * pajak;
+    totalFinal += pajakNominal;
+
     // Cetak struk
     cout << "\n=== STRUK BELANJA ===" << endl;
     for(int i = 0; i < index; i++){
         cout << strukMenu[i] << " x " << strukJumlah[i] << " = " << strukSubtotal[i] << endl;
     }
     cout << "Total Belanja : " << totalsemua << endl;
+    if(diskonNominal > 0)
+        cout << "Diskon 10% : -" << diskonNominal << endl;
+    cout << "Pajak 10% : +" << pajakNominal << endl;
+    cout << "Total Bayar : " << totalFinal << endl;
 
     return 0;
 }
