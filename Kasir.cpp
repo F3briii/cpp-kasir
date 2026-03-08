@@ -7,7 +7,7 @@ int main() {
     const int MAX_MENU = 100;
     string daftarMenu[MAX_MENU];
     int daftarHarga[MAX_MENU];
-    int jumlahMenu = 0; // awalnya kosong
+    int jumlahMenu = 0; 
 
     // struk belanja
     string strukMenu[100];
@@ -17,9 +17,9 @@ int main() {
     int totalsemua = 0;
 
     // diskon & pajak
-    double diskon = 0.1; // 10% kalau total > threshold
-    double pajak = 0.1;  // PPN 10%
-    int diskonThreshold = 100000; // threshold diskon
+    double diskon = 0.1; 
+    double pajak = 0.1;  %
+    int diskonThreshold = 100000; 
 
     while(true){
         cout << "\n=== KOPI SANTAI ===" << endl;
@@ -108,3 +108,4 @@ int main() {
 
     return 0;
 }
+
