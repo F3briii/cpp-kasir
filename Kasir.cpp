@@ -17,8 +17,8 @@ int main() {
     int totalsemua = 0;
 
     // diskon & pajak
-    double diskon = 0.1; 
-    double pajak = 0.1;  %
+    double diskon = 0.1;
+    double pajak = 0.1;  
     int diskonThreshold = 100000; 
 
     while(true){
@@ -45,7 +45,7 @@ int main() {
         if(pilihan == jumlahMenu + 1){
             string menuBaru;
             int hargaBaru;
-            cout << "Nama menu baru (tanpa spasi): ";
+            cout << "Nama menu baru (tanpa spasi) : ";
             cin >> menuBaru;
             cout << "Harga : ";
             cin >> hargaBaru;
@@ -55,7 +55,7 @@ int main() {
             daftarHarga[jumlahMenu] = hargaBaru;
             jumlahMenu++;
 
-            // simpan ke file (opsional)
+            // simpan ke file
             ofstream fileTambah("menu.txt", ios::app);
             fileTambah << menuBaru << " " << hargaBaru << endl;
             fileTambah.close();
@@ -108,4 +108,3 @@ int main() {
 
     return 0;
 }
-
